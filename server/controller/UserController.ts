@@ -3,6 +3,7 @@ import { validate } from "class-validator";
 
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
+import { adminMessage } from "../middleware/webSocket";
 
 class UserController {
   static listAll = async (req: Request, res: Response) => {
@@ -11,9 +12,9 @@ class UserController {
     const users = await userRepository.find({
       select: ["id", "username"], //We dont want to send the passwords on response
     });
-
     //Send the users object
     res.send(users);
+
   };
 
   static getOneById = async (req: Request, res: Response) => {
