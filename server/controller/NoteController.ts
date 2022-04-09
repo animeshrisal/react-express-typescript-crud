@@ -4,6 +4,7 @@ import { validate } from "class-validator";
 import { Note } from "../entity/Note";
 import { AppDataSource } from "../data-source";
 
+
 class NoteController {
   static listAll = async (req: Request, res: Response) => {
     const id: number = res.locals.jwtPayload.userId;
@@ -12,6 +13,8 @@ class NoteController {
     const notes = await noteRepository.find({
       where: { user: { id: id } },
     });
+
+    
 
     res.send(notes);
   };
