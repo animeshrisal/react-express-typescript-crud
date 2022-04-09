@@ -18,12 +18,12 @@ class UserController {
 
   static getOneById = async (req: Request, res: Response) => {
     //Get the ID from the url
-    const id = res.locals.jwtPayload.userId;
+    const id: number = res.locals.jwtPayload.userId;
 
     //Get the user from database
     const userRepository = AppDataSource.getRepository(User);
     try {
-      const user = await userRepository.findOneOrFail(id);
+      const user = await userRepository.findOneOrFail({ where: { id } });
       res.send(user);
     } catch (error) {
       res.status(404).send("User not found");
@@ -36,7 +36,6 @@ class UserController {
     let user = new User();
     user.username = username;
     user.password = password;
-    user.role = role;
 
     //Validade if the parameters are ok
     const errors = await validate(user);
@@ -53,7 +52,7 @@ class UserController {
     try {
       await userRepository.save(user);
     } catch (e) {
-      res.status(409).send("username already in use");
+      res.status(409).send("Username already in use");
       return;
     }
 
@@ -72,7 +71,7 @@ class UserController {
     const userRepository = AppDataSource.getRepository(User);
     let user;
     try {
-      user = await userRepository.findOneOrFail(id);
+      user = await userRepository.findOneOrFail({ where: { id } });
     } catch (error) {
       //If not found, send a 404 response
       res.status(404).send("User not found");
@@ -92,7 +91,7 @@ class UserController {
     try {
       await userRepository.save(user);
     } catch (e) {
-      res.status(409).send("username already in use");
+      res.status(409).send("Username already in use");
       return;
     }
     //After all send a 204 (no content, but accepted) response
@@ -106,7 +105,7 @@ class UserController {
     const userRepository = AppDataSource.getRepository(User);
     let user: User;
     try {
-      user = await userRepository.findOneOrFail(id);
+      user = await userRepository.findOneOrFail({ where: { id } });
     } catch (error) {
       res.status(404).send("User not found");
       return;
