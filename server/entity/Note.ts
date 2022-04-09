@@ -12,7 +12,12 @@ export class Note {
     @Column()
     completed: boolean
 
+
+    @Column()
+    userId: number
+
     @ManyToOne(() => User, (user) => user.notes)
     user: User
+
 
 }
