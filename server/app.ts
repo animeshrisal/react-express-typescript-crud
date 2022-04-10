@@ -29,7 +29,7 @@ AppDataSource.initialize()
       res.sendFile(path.join(__dirname, "build", "index.html"));
     });
 
-    app.get("/api/v1", routes);
+    app.use("/api/v1", routes);
 
     const server = app.listen(3000);
     socket(server);
