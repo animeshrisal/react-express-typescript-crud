@@ -1,8 +1,10 @@
 import { DataSource } from "typeorm";
 
+require("dotenv").config();
+
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
+    host: process.env.DATABASE || 'localhost',
     port: 5432,
     username: "postgres",
     password: "postgres",

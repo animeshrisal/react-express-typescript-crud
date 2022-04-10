@@ -7,6 +7,7 @@ import { AppDataSource } from "./data-source";
 import routes from "./routes";
 import { adminMessage, socket } from "./middleware/webSocket";
 import { Server } from "http";
+import * as dotenv from 'dotenv';
 
 //Connects to the Database -> then starts the express
 AppDataSource.initialize()
@@ -21,6 +22,8 @@ AppDataSource.initialize()
     app.use(helmet());
     app.use(bodyParser.json());
 
+    dotenv.config();
+
     //Set all routes from routes folder
     // register express routes from defined application routes
 
@@ -32,7 +35,7 @@ AppDataSource.initialize()
 
     app.use("/api/v1", routes);
 
-    const server: Server = app.listen(3000);
+    const server: Server = app.listen(8000);
     socket(server);
   })
   .catch((error) => console.log(error));
