@@ -6,5 +6,6 @@
         "esModuleInterop": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "outDir": "output"
     }
 }
