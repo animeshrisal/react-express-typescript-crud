@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
 import { adminMessage, socket } from "./middleware/webSocket";
+import { Server } from "http";
 
 //Connects to the Database -> then starts the express
 AppDataSource.initialize()
@@ -25,14 +26,13 @@ AppDataSource.initialize()
 
     app.use(express.static(path.join(__dirname, "build")));
 
-    app.get("/", function (req, res) {
+    app.get("/", function (req: Request, res: Response) {
       res.sendFile(path.join(__dirname, "build", "index.html"));
     });
 
     app.use("/api/v1", routes);
 
-    const server = app.listen(3000);
+    const server: Server = app.listen(3000);
     socket(server);
-
   })
   .catch((error) => console.log(error));
